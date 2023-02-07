@@ -15,4 +15,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         project_path: claat
         build_command: make release
+        compress_assets: OFF
+        release_name: latest
         #extra_files: claat/bin/VERSION sha1sum.txt nb2cl
