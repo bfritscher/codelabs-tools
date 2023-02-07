@@ -9,20 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      id: cache-go
-      with:
-        path: |
-          ./go
-          /home/runner/go
-        key: ${{ runner.os }}-go
-
-    - name: setup-Go
-      if: steps.cache-go.outputs.cache-hit != 'true'
-      run: wget --no-verbose https://go.dev/dl/go1.20.linux-amd64.tar.gz && tar -C . -xzf go1.20.linux-amd64.tar.gz
-
+    - uses: actions/setup-go@v3
     - name: build
-      run: ./claat/make release
+      run: make release
+      working-directory: ./claat
 
     - name: upload
       run: gh release upload "$RELEASE_TAG" ./claat/bin/*
