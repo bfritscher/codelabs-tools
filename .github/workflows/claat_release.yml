@@ -18,5 +18,5 @@ jobs:
       working-directory: ./claat
 
     - name: upload
-      run: gh release upload $GITHUB_REF ./claat/bin/*
+      run: gh release upload ${{ github.event.release.tag_name }} ./claat/bin/*
 
