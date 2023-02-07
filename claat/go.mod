@@ -1,4 +1,4 @@
-module github.com/googlecodelabs/tools/claat
+module github.com/bfritscher/codelabs-tools/claat
 
 go 1.16
 
