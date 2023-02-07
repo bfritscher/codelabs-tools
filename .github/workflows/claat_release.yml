@@ -13,6 +13,7 @@ jobs:
     - uses: wangyoucao577/go-release-action@v1.35
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        project_path: claat
         build_command: make
         build_flags: release
         extra_files: VERSION sha1sum.txt nb2cl
