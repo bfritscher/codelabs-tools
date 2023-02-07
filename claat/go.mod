@@ -1,4 +1,5 @@
 module github.com/bfritscher/codelabs-tools/claat
+replace github.com/googlecodelabs/tools/claat => github.com/bfritscher/codelabs-tools/claat
 
 go 1.16
 
