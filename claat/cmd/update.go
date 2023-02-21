@@ -116,6 +116,7 @@ func updateCodelab(dir string, opts CmdUpdateOptions) (*types.Meta, error) {
 	if err != nil {
 		return nil, err
 	}
+	clab.Meta.Source = meta.Source
 	updated := types.ContextTime(clab.Mod)
 	meta.Context.Updated = &updated
 
