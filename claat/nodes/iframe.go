@@ -14,6 +14,9 @@ var IframeAllowlist = []string{
 	"observablehq.com",
 	"repl.it",
 	"web.dev",
+	"localhost",
+	"bf0.ch",
+	"fritscher.ch",
 }
 
 // NewIframeNode creates a new embedded iframe.
