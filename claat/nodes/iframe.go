@@ -17,6 +17,7 @@ var IframeAllowlist = []string{
 	"localhost",
 	"bf0.ch",
 	"fritscher.ch",
+	"codelabs.bf0.ch",
 }
 
 // NewIframeNode creates a new embedded iframe.
