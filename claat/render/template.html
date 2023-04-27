@@ -24,6 +24,7 @@ the License.
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="{{.Prefix}}/claat-public/codelab-elements.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typesense-docsearch-css@0.4.0">
   <style>
     .success {
       color: #1e8e3e;
@@ -63,6 +64,24 @@ the License.
   <script src="{{.Prefix}}/claat-public/custom-elements.min.js"></script>
   <script src="{{.Prefix}}/claat-public/prettify.js"></script>
   <script src="{{.Prefix}}/claat-public/codelab-elements.js"></script>
-
+    
+  <script src="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@3.4.0"></script>
+  <script>
+      const title = document.getElementById('codelab-title');
+      const searchbar = document.createElement('div');
+      title.append(searchbar);
+      docsearch({
+        container: searchbar,
+        typesenseCollectionName: 'codelabs',
+        typesenseServerConfig: { 
+          nodes: [{
+            host: 'typesense.bf0.ch',
+            port: '443',
+            protocol: 'https'
+          }],
+          apiKey: 'GeOr6Gd9iCEw0YcthjE73rlxAd4uo2Cg',
+        }
+      });
+  </script>
 </body>
 </html>
