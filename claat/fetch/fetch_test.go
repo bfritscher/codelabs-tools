@@ -144,3 +144,51 @@ func safeAbs(t *testing.T, p string) string {
 	}
 	return p
 }
+
+func TestTruncateURL(t *testing.T) {
+	tests := []struct {
+		name    string
+		url     string
+		maxLen  int
+		want    string
+	}{
+		{
+			name:   "short URL stays unchanged",
+			url:    "https://example.com/image.png",
+			maxLen: 100,
+			want:   "https://example.com/image.png",
+		},
+		{
+			name:   "regular URL truncated",
+			url:    strings.Repeat("a", 150),
+			maxLen: 100,
+			want:   strings.Repeat("a", 100) + "... (150 bytes total)",
+		},
+		{
+			name:   "data URL truncated with mime type",
+			url:    "data:image/png;base64," + strings.Repeat("A", 1000),
+			maxLen: 100,
+			want:   "data:image/png;base64,... (1022 bytes total)",
+		},
+		{
+			name:   "short data URL stays unchanged",
+			url:    "data:image/png;base64,ABC",
+			maxLen: 100,
+			want:   "data:image/png;base64,ABC",
+		},
+		{
+			name:   "data URL without comma gets generic truncation",
+			url:    "data:" + strings.Repeat("x", 150),
+			maxLen: 100,
+			want:   "data:" + strings.Repeat("x", 95) + "... (155 bytes total)",
+		},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got := truncateURL(tc.url, tc.maxLen)
+			if got != tc.want {
+				t.Errorf("truncateURL() = %q, want %q", got, tc.want)
+			}
+		})
+	}
+}
