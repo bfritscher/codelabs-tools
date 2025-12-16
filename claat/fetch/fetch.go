@@ -547,7 +547,7 @@ func truncateURL(url string, maxLen int) string {
 		return url
 	}
 	if strings.HasPrefix(url, "data:") {
-		// For data URLs, show the mime type and a bit of the data
+		// For data URLs, show the mime type and total size
 		parts := strings.SplitN(url, ",", 2)
 		if len(parts) == 2 {
 			return fmt.Sprintf("%s,... (%d bytes total)", parts[0], len(url))
