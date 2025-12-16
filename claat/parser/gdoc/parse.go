@@ -707,12 +707,12 @@ func image(ds *docState) nodes.Node {
 	} else if strings.HasPrefix(s, "data:") {
 		_, data, ok := strings.Cut(s, ",")
 		if !ok {
-			fmt.Fprint(os.Stderr, "Failed to decode data URL: "+s+" \n")
+			fmt.Fprintf(os.Stderr, "Failed to decode data URL (length: %d bytes)\n", len(s))
 			return nil
 		}
 		b, err := base64.StdEncoding.DecodeString(data)
 		if err != nil {
-			fmt.Fprint(os.Stderr, "Failed to decode data URL: "+s+"\n"+err.Error()+"\n")
+			fmt.Fprintf(os.Stderr, "Failed to decode data URL (length: %d bytes): %v\n", len(s), err)
 			return nil
 		}
 		imageSrc = ""

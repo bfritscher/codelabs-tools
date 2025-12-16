@@ -241,7 +241,8 @@ func (f *Fetcher) SlurpImages(src, dir string, n []nodes.Node, images map[string
 		r := <-ch
 		images[r.file] = r.url
 		if r.err != nil {
-			errStr += fmt.Sprintf("%s => %s: %v\n", r.url, r.file, r.err)
+			displayURL := truncateURL(r.url, 100)
+			errStr += fmt.Sprintf("%s => %s: %v\n", displayURL, r.file, r.err)
 		}
 	}
 	if len(errStr) > 0 {
@@ -538,4 +539,19 @@ func imgExtFromBytes(b []byte) (string, error) {
 		ext = ".gif"
 	}
 	return ext, nil
+}
+
+// truncateURL truncates long URLs (especially data URLs) for error reporting
+func truncateURL(url string, maxLen int) string {
+	if len(url) <= maxLen {
+		return url
+	}
+	if strings.HasPrefix(url, "data:") {
+		// For data URLs, show the mime type and a bit of the data
+		parts := strings.SplitN(url, ",", 2)
+		if len(parts) == 2 {
+			return fmt.Sprintf("%s,... (%d bytes total)", parts[0], len(url))
+		}
+	}
+	return url[:maxLen] + fmt.Sprintf("... (%d bytes total)", len(url))
 }
